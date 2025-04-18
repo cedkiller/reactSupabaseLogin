@@ -1,0 +1,94 @@
+STEP BY STEP TERMINAL
+
+CLIENT SIDE
+
+STEP 1: OPEN NEW TERMINAL
+
+- npm create vite@latest
+- name it client
+- choose Javascript + SWC
+- cd client
+- npm install axios react-router-dom sweetalert2 jwt-decode bootstrap dotenv @supabase/supabase-js bcrypt
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+STEP 2: GO TO vite-config AND PASTE THIS CODE
+
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    host: true, // Optional: for allowing access from the network
+    port: 3000,
+    open: true, // Optional: open the browser automatically
+    historyApiFallback: true,
+  }
+})
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+STEP 3: AFTER PASTING THE CODE RIGHT CLICK THE CLIENT FOLDER AND THEN OPEN INTEGRATED TERMINAL AND PASTE THIS CODE
+
+- npm install @vitejs/plugin-react --save-dev
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+STEP 4: CHANGE main.css TO YOUR DEFAULT STYLING AND DELETE THE CONTENT OF THE app.js AND PASTE THIS IMPORTS
+
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+STEP 5: YOU CAN NOW RUN THE APPLICATION BY OPEN INTEGRATED TERMINAL IN CLIENT
+
+- npm run dev
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+CREATE FOLDER IN src/ NAMED IT config THEN CREATE A FILE NAMED config.jsx THEN PASTE THIS CODE
+
+import {createClient} from '@supabase/supabase-js';
+
+const supabase = createClient(
+    import.meta.env.VITE_SUPABASE_URL,
+    import.meta.env.VITE_SUPABASE_ANON_KEY
+);
+
+export default supabase;
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+GO TO YOUR SUPABASE AND GO TO THE SQL EDITOR AND PASTE AND RUN THIS CODE
+
+-- Allow SELECT
+create policy "Allow select for all"
+on record
+for select
+using (true);
+
+-- Allow INSERT
+create policy "Allow insert for all"
+on record
+for insert
+with check (true);
+
+-- Allow UPDATE
+create policy "Allow update for all"
+on record
+for update
+using (true)
+with check (true);
+
+-- Allow DELETE
+create policy "Allow delete for all"
+on record
+for delete
+using (true);
+
+
